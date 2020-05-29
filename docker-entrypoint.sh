@@ -6,3 +6,4 @@ php artisan migrate --force
 echo "End migrations"
 
 exec "$@"
+

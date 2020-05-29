@@ -78,5 +78,4 @@ class Controller extends BaseController
                 'locations' => $locations
             ]);
     }
-
 }

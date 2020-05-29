@@ -7,7 +7,6 @@ RUN apt-get update && apt-get install -y \
   libxml2-dev \
   libpq-dev \
   libzip-dev \
-  supervisor \
   libgmp-dev
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
@@ -19,7 +18,7 @@ RUN docker-php-ext-install pdo \
   pdo_pgsql \
   pgsql \
   xml \
-  zip \
+  zip
 
 COPY . /var/fcm
 WORKDIR /var/fcm

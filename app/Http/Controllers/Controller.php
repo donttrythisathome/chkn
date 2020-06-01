@@ -62,11 +62,12 @@ class Controller extends BaseController
 
     protected function page()
     {
+        $this->facilicom->checkins();
         /** @var Collection $locations */
-        $locations = $this->facilicom->locations();
+        $checkins = $this->facilicom->checkins();
         $canCheckin = true;
-        foreach ($locations as $location){
-            if ($location->IsCheckedOut === 0){
+        foreach ($checkins as $checkin){
+            if (! $checkin->isCheckedOut() ){
                 $canCheckin = false;
             }
         }
@@ -75,7 +76,7 @@ class Controller extends BaseController
             [
                 'canCheckin' => $canCheckin,
                 'accounts' => Account::query()->orderByRaw('sort_order, name')->get(),
-                'locations' => $locations
+                'checkins' => $checkins
             ]);
     }
 }

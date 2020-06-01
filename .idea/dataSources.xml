@@ -7,5 +7,11 @@
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://localhost:5432/facilicom</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="fcm@russian-roulette.ml" uuid="3fe476f5-7655-45f5-8e66-c8b82c0616d3">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://russian-roulette.ml:5432/fcm</jdbc-url>
+    </data-source>
   </component>
 </project>

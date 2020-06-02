@@ -34,7 +34,7 @@ class Account extends Model
      */
     protected function getLatNearAttribute()
     {
-        if (empty($lat = (string)$this->getAttribute('lng'))) {
+        if (empty($lat = (string)$this->getAttribute('lat'))) {
             return null;
         }
         $lat{9} = rand(0, 9);

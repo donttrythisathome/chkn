@@ -5,6 +5,7 @@ namespace App\Facilicom;
 use App\Account;
 use App\Checkin;
 use App\Location;
+use Carbon\Carbon;
 use Illuminate\Cache\CacheManager;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -69,18 +70,35 @@ class Service
     public function locations(): Collection
     {
         $data =  $this->client->getCheckin($this->getToken());
+        Collection::wrap($data)->map(function (array $locData){
+            if (! $location = Location::query()->find(array_get($locData,'ID'))) {
+                Location::create([
+                    'id' => array_get($locData,'ID'),
+                    'lat' => array_get($locData,'Latitude'),
+                    'lng' => array_get($locData,'Longitude'),
+                    'directum_id' => array_get($locData,'DirectumID'),
+                    'created_at' => Carbon::parse(array_get($locData,'Date')),
+                    'is_checked_out' => (bool) array_get($locData,'IsCheckedOut')
+                ]);
 
-        /** @var Collection $locations */
-        $locations =  Location::hydrate($data);
+            } else {
+                $location->update([
+                    'is_checked_out' => (bool) array_get($locData,'IsCheckedOut')
+                ]);
+            }
 
-        return $locations->load(['account']);
+        });
+
+        return Location::query()
+            ->orderBy('id','asc')
+            ->limit(10)
+            ->with(['account'])
+            ->whereDate('created_at','>=',now()->subDays(2)->startOfDay())
+            ->get();
     }
 
     public function checkins()
     {
         return Checkin::hydrate($this->locations());
-//        $d->each(function (Checkin $checkin){
-//            dd($checkin->getDuration()->format("%h:%i"));
-//        });
     }
 }

@@ -28,7 +28,7 @@ class Checkin
      */
     public static function hydrate(Collection $data): Collection
     {
-        $data = $data->groupBy('DirectumID')->values()->map(function (Collection $c){
+        $data = $data->groupBy('directum_id')->values()->map(function (Collection $c){
             return $c->sortBy('id')->values();
         })->flatten();
         $data = $data->split(ceil($data->count() / 2));
@@ -94,7 +94,7 @@ class Checkin
      */
     public function getArrivedAt(): Carbon
     {
-        return Carbon::parse($this->getArrival()->Date)->addHours(3);
+        return Carbon::parse($this->getArrival()->created_at)->addHours(3);
     }
 
     /**
@@ -103,7 +103,7 @@ class Checkin
     public function getDepartedAt(): ?Carbon
     {
         if ($this->departure){
-            return Carbon::parse($this->getDeparture()->Date)->addHours(3);
+            return Carbon::parse($this->getDeparture()->created_at)->addHours(3);
         }
 
         return null;
@@ -126,6 +126,6 @@ class Checkin
      */
     public function isCheckedOut()
     {
-        return ! is_null($this->getDeparture());
+        return ! is_null($this->getArrival()->is_checked_out);
     }
 }

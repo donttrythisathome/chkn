@@ -50,10 +50,13 @@
                             @if(! $checkin->isCheckedOut())
                                 <form method="POST" action="/checkout">
                                     @csrf
-                                    <button type="submit" name="account" value="{{$checkin->getAccount()->getKey()}}">Завершить</button>
+                                    <button
+                                        class="btn btn-outline-success btn-sm"
+                                        type="submit"
+                                        name="account" value="{{$checkin->getAccount()->getKey()}}">Завершить</button>
                                 </form>
                             @else
-                                {{'завершен'}}
+                                завершен
                             @endif
                         </td>
                     </tr>

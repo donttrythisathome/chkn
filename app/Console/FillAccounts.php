@@ -20,7 +20,7 @@ class FillAccounts extends Command
 
     /**
      * @param Client $client
-     * @param Geocode $geocode
+     * @param Geocode $geocodeaccounts
      */
     public function __construct(Client $client, Geocode $geocode)
     {

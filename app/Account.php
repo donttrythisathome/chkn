@@ -37,8 +37,8 @@ class Account extends Model
         if (empty($lat = (string)$this->getAttribute('lat'))) {
             return null;
         }
-        $lat{9} = rand(0, 9);
-        $lat{10} = rand(0, 9);
+        $lat[9] = rand(0, 9);
+        $lat[10] = rand(0, 9);
 
         return (float)$lat;
     }
@@ -51,8 +51,8 @@ class Account extends Model
         if (empty($lng = (string)$this->getAttribute('lng'))) {
             return null;
         }
-        $lng{9} = rand(0, 9);
-        $lng{10} = rand(0, 9);
+        $lng[9] = rand(0, 9);
+        $lng[10] = rand(0, 9);
 
         return (float)$lng;
     }
